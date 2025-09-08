@@ -1,0 +1,941 @@
+/* ==========================================================================
+   Figma-Style Dark Theme Redesign
+   ========================================================================== */
+
+:root {
+  /* Color Palette - Default to Dark Theme */
+  --bg-primary: #1E1F22;    /* Main background, like Figma's canvas area */
+  --bg-secondary: #2B2D30;  /* Sidebar, modals, secondary panels */
+  --bg-tertiary: #313338;   /* Cards, input fields, raised elements */
+  
+  --text-primary: #F2F3F5;  /* Primary text color */
+  --text-secondary: #949BA4;/* Secondary/muted text, labels */
+  --text-tertiary: #B5BAC1; /* Tertiary text */
+
+  --border-primary: #35373C; /* Borders for panels, cards */
+  --border-secondary: #404249; /* Borders for inputs, interactive elements */
+  
+  --accent-primary: #0D99FF; /* Primary accent for buttons, selections, focus */
+  --accent-primary-hover: #0077CC;
+  --accent-primary-light: rgba(13, 153, 255, 0.1);
+
+  --green-500: #22A559;
+  --green-600: #1A8447;
+  --red-500: #DA373C;
+  --red-light: rgba(218, 55, 60, 0.1);
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Sizing & Spacing */
+  --border-radius-sm: 4px;
+  --border-radius-md: 6px;
+  --border-radius-lg: 8px;
+  
+  /* Shadows */
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,.1), 0 2px 4px -2px rgba(0,0,0,.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,.1), 0 8px 10px -6px rgba(0,0,0,.1);
+}
+
+/* ==========================================================================
+   Light Theme Definition
+   ========================================================================== */
+body.light-theme {
+  --bg-primary: #F9FAFB;    /* Off-white background */
+  --bg-secondary: #FFFFFF;  /* White panels */
+  --bg-tertiary: #F3F4F6;   /* Light gray inputs/cards */
+  
+  --text-primary: #111827;  /* Dark gray primary text */
+  --text-secondary: #6B7280;/* Medium gray secondary text */
+  --text-tertiary: #4B5563; /* Slightly darker secondary text */
+
+  --border-primary: #E5E7EB; /* Light gray borders */
+  --border-secondary: #D1D5DB; /* Medium gray borders for inputs */
+  
+  --accent-primary: #0D99FF;
+  --accent-primary-hover: #0077CC;
+  --accent-primary-light: rgba(13, 153, 255, 0.1);
+
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.05), 0 4px 6px -4px rgba(0,0,0,.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,.05), 0 8px 10px -6px rgba(0,0,0,.05);
+}
+
+/* ==========================================================================
+   Global Resets & Base Styles
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-smoothing: grayscale;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+/* ==========================================================================
+   Header / Top Toolbar
+   ========================================================================== */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-primary);
+  flex-shrink: 0;
+  height: 48px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.logo-icon {
+    background: var(--accent-primary);
+    width: 24px;
+    height: 24px;
+    border-radius: var(--border-radius-sm);
+}
+
+.stack-name-header {
+    margin: 0;
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    padding-left: 12px;
+    border-left: 1px solid var(--border-primary);
+}
+.stack-name-header span {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #7289DA; /* Discord-like purple */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+  padding: 8px 16px;
+  border-radius: var(--border-radius-md);
+  border: 1px solid transparent;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: white;
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-primary-hover);
+}
+
+.btn-secondary {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-secondary);
+}
+.btn-secondary:hover:not(:disabled) {
+    background-color: var(--border-secondary);
+}
+
+.light-theme .btn-secondary:hover:not(:disabled) {
+    background-color: #E5E7EB;
+}
+
+.btn-success {
+    background-color: var(--green-500);
+    color: white;
+}
+.btn-success:hover:not(:disabled) {
+    background-color: var(--green-600);
+}
+
+.theme-toggle {
+    padding: 6px;
+    width: 34px;
+    height: 34px;
+    justify-content: center;
+}
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* ==========================================================================
+   Main Content Layout (Stacks List)
+   ========================================================================== */
+
+.main-content {
+  flex-grow: 1;
+  padding: 48px;
+  overflow-y: auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+
+/* ==========================================================================
+   Auth / Landing Page
+   ========================================================================== */
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 24px;
+}
+
+.auth-box {
+    width: 100%;
+    max-width: 400px;
+    background-color: var(--bg-secondary);
+    padding: 40px;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-lg);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.auth-header .logo {
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.auth-header h1 {
+    font-size: 1.75rem;
+    margin: 0 0 8px 0;
+}
+
+.auth-header p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.auth-form .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 1rem;
+    margin-top: 24px;
+}
+
+.form-toggle-text {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.form-toggle-text button {
+    background: none;
+    border: none;
+    color: var(--accent-primary);
+    cursor: pointer;
+    font-weight: 500;
+    padding: 0;
+}
+.form-toggle-text button:hover {
+    text-decoration: underline;
+}
+
+.form-error {
+    color: var(--red-500);
+    background-color: var(--red-light);
+    border: 1px solid var(--red-500);
+    border-radius: var(--border-radius-md);
+    padding: 12px;
+    font-size: 0.875rem;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+/* ==========================================================================
+   Stacks List
+   ========================================================================== */
+.stacks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.stack-card {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-primary);
+  border-radius: var(--border-radius-lg);
+  padding: 24px;
+  transition: all 0.2s ease-in-out;
+}
+
+.stack-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-secondary);
+}
+.light-theme .stack-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-secondary);
+}
+
+.stack-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.stack-card p {
+  margin: 0 0 24px 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  min-height: 40px;
+}
+
+.stack-card-footer {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.edit-stack-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-secondary);
+    padding: 8px 12px;
+}
+.edit-stack-btn:hover {
+    background-color: var(--border-secondary);
+}
+
+.edit-stack-btn svg {
+    width: 16px;
+    height: 16px;
+    color: var(--text-secondary);
+}
+
+
+/* ==========================================================================
+   Modals
+   ========================================================================== */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease-out;
+}
+.light-theme .modal-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-xl);
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  animation: popIn 0.2s ease-out;
+}
+
+.modal-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.close-btn:hover {
+    color: var(--text-primary);
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin-bottom: 8px;
+  color: var(--text-tertiary);
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--border-radius-md);
+  font-size: 0.875rem;
+  font-family: var(--font-family);
+  transition: all 0.2s;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px var(--accent-primary-light);
+}
+.form-control::placeholder {
+    color: var(--text-secondary);
+}
+.form-control.is-invalid {
+    border-color: var(--red-500) !important;
+}
+
+.invalid-feedback {
+    color: var(--red-500);
+    font-size: 0.75rem;
+    margin-top: 4px;
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: none;
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  background-color: var(--bg-primary);
+  border-top: 1px solid var(--border-primary);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-bottom-left-radius: var(--border-radius-lg);
+  border-bottom-right-radius: var(--border-radius-lg);
+}
+
+
+/* ==========================================================================
+   Workflow Editor
+   ========================================================================== */
+
+.editor-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 240px;
+    background-color: var(--bg-secondary);
+    border-right: 1px solid var(--border-primary);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.sidebar h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0 0 8px 8px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.component-item {
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius-md);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: grab;
+    background: transparent;
+    transition: all 0.2s;
+}
+.component-item:hover {
+    background-color: var(--bg-tertiary);
+}
+.component-item.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+    background-color: var(--accent-primary-light);
+}
+.component-item svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.5;
+    color: var(--text-secondary);
+}
+
+.component-item span {
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+}
+
+/* Workspace */
+.editor-workspace {
+    flex-grow: 1;
+    position: relative;
+    background-color: var(--bg-primary);
+    --dot-bg: var(--bg-primary);
+    --dot-color: var(--border-primary);
+    --dot-size: 1px;
+    --dot-space: 22px;
+	background:
+		linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center,
+		linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center,
+		var(--dot-color);
+	background-size: var(--dot-space) var(--dot-space);
+}
+
+.react-flow__background {
+   background-color: transparent !important;
+}
+
+
+/* ==========================================================================
+   Custom Nodes
+   ========================================================================== */
+.react-flow__node {
+    border-radius: var(--border-radius-sm) !important;
+    border: 1px solid var(--border-secondary) !important;
+    background: var(--bg-secondary) !important;
+    min-width: 320px;
+    transition: all 0.2s;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: none !important;
+}
+.react-flow__node:hover {
+    border-color: var(--accent-primary) !important;
+}
+.react-flow__node.selected {
+    border-color: var(--accent-primary) !important;
+    box-shadow: 0 0 0 1px var(--accent-primary) !important;
+}
+.light-theme .react-flow__node {
+    box-shadow: var(--shadow-md) !important;
+}
+
+.node-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid var(--border-primary);
+}
+
+.node-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    font-size: 0.8125rem;
+    color: var(--text-primary);
+}
+.node-title svg {
+    width: 16px;
+    height: 16px;
+    color: var(--text-secondary);
+}
+
+.node-actions {
+    display: flex;
+    gap: 8px;
+}
+.node-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 0;
+}
+.node-actions button:hover {
+    color: var(--text-primary);
+}
+
+.node-body {
+    padding: 12px;
+    font-size: 0.875rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.node-body .form-group { margin-bottom: 12px; }
+.node-body .form-group:last-child { margin-bottom: 0; }
+.node-body .form-group.user-query-group,
+.node-body .form-group.llm-prompt-group {
+    flex-grow: 1;
+}
+.node-body .form-group textarea { flex-grow: 1; }
+
+.node-body label {
+    font-size: 0.8125rem;
+    margin-bottom: 6px;
+    color: var(--text-secondary);
+}
+
+.node-body .form-control {
+    font-size: 0.8125rem;
+    padding: 8px 10px;
+    background-color: var(--bg-primary);
+}
+
+.node-body .form-control:focus {
+    background-color: var(--bg-primary);
+}
+
+.output-text-display {
+    font-size: 0.8125rem;
+    color: var(--text-tertiary);
+    min-height: 50px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background-color: var(--bg-primary);
+    padding: 8px;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-secondary);
+    user-select: text;
+    flex-grow: 1;
+}
+
+.password-input { position: relative; }
+.password-input .form-control { padding-right: 30px; }
+.password-toggle {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.upload-box {
+    border: 2px dashed var(--border-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--bg-primary);
+}
+.upload-box:hover {
+    border-color: var(--accent-primary);
+    background-color: var(--accent-primary-light);
+}
+.upload-box span {
+    color: var(--green-500);
+    font-weight: 500;
+}
+
+.uploaded-file {
+    background: rgba(34, 165, 89, 0.1);
+    border: 1px solid var(--green-500);
+    border-radius: var(--border-radius-md);
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.8125rem;
+}
+.uploaded-file button {
+    background: none; border: none; cursor: pointer; color: var(--text-secondary);
+}
+.uploaded-file button:hover { color: var(--red-500); }
+
+
+.toggle-switch {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.switch { position: relative; display: inline-block; width: 34px; height: 20px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--bg-tertiary); transition: .4s; border-radius: 34px;
+}
+.slider:before {
+  position: absolute; content: ""; height: 14px; width: 14px;
+  left: 3px; bottom: 3px; background-color: white; transition: .4s;
+  border-radius: 50%;
+}
+.light-theme .slider:before {
+    background-color: var(--text-primary);
+}
+.light-theme input:checked + .slider:before {
+    background-color: white;
+}
+input:checked + .slider { background-color: var(--green-500); }
+input:checked + .slider:before { transform: translateX(14px); }
+
+
+/* ==========================================================================
+   React Flow Overrides
+   ========================================================================== */
+
+.react-flow__handle {
+    width: 8px !important;
+    height: 8px !important;
+    background: var(--bg-tertiary) !important;
+    border: 1px solid var(--text-secondary) !important;
+}
+.react-flow__handle.connecting {
+    background: var(--accent-primary) !important;
+}
+.react-flow__edge-path {
+    stroke: var(--text-secondary);
+    stroke-width: 2;
+}
+.react-flow__edge.selected .react-flow__edge-path {
+    stroke: var(--accent-primary);
+}
+
+.handle-label {
+    position: absolute;
+    font-size: 10px;
+    color: var(--text-secondary);
+    top: -15px;
+    font-weight: 500;
+}
+.react-flow__handle-left + .handle-label { left: 10px; }
+.react-flow__handle-right + .handle-label { right: 10px; }
+
+
+.react-flow__controls {
+    background: var(--bg-secondary) !important;
+    border: 1px solid var(--border-primary) !important;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md) !important;
+}
+.react-flow__controls-button {
+    background: transparent !important;
+    border-bottom: 1px solid var(--border-primary) !important;
+    color: var(--text-secondary) !important;
+}
+.react-flow__controls-button:hover {
+    background: var(--bg-tertiary) !important;
+}
+.react-flow__controls-button:last-child {
+    border-bottom: none !important;
+}
+
+.react-flow__resize-control {
+  border: none;
+  background: transparent;
+}
+.react-flow__resize-control .react-flow__resize-handle {
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--accent-primary);
+  border-radius: 2px;
+  background: var(--bg-secondary);
+}
+
+/* ==========================================================================
+   Chat Modal
+   ========================================================================== */
+.chat-modal-content { max-width: 800px; height: 80vh; max-height: 700px; }
+.chat-modal-body { padding: 0; flex-grow: 1; display: flex; flex-direction: column; }
+.chat-messages {
+    flex-grow: 1; overflow-y: auto; padding: 24px;
+    display: flex; flex-direction: column; gap: 20px;
+}
+
+.chat-start { margin: auto; text-align: center; color: var(--text-secondary); }
+.chat-start .logo-icon { margin: 0 auto 16px; background: var(--accent-primary); }
+.chat-start h3 { margin: 0 0 4px 0; color: var(--text-primary); }
+
+@keyframes messageIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message { display: flex; gap: 16px; max-width: 90%; animation: messageIn 0.3s ease-out; }
+.message.user { align-self: flex-end; flex-direction: row-reverse; }
+.message-avatar {
+    width: 32px; height: 32px; border-radius: 50%; background-color: var(--bg-tertiary);
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+}
+.message-avatar.user-avatar { background-color: #7289DA; color: white; }
+.message-avatar.ai-avatar { background-color: var(--green-500); }
+.message-avatar.ai-avatar .logo-icon { background-color: white; width: 20px; height: 20px; }
+
+.message-content {
+    background-color: var(--bg-tertiary);
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: var(--text-tertiary);
+}
+.message.ai .message-content { border-top-left-radius: 0; }
+.message.user .message-content {
+    background-color: var(--accent-primary);
+    color: white;
+    border-top-right-radius: 0;
+}
+.message-content p { margin: 0; line-height: 1.5; }
+.message-content p + p { margin-top: 1em; }
+.message-content ol { padding-left: 20px; }
+.message-content b { font-weight: 600; color: var(--text-primary); }
+.message.user .message-content b { color: white; }
+
+.chat-input-area {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-primary);
+    background-color: var(--bg-secondary);
+    border-bottom-left-radius: var(--border-radius-lg);
+    border-bottom-right-radius: var(--border-radius-lg);
+}
+
+.chat-input-wrapper { position: relative; }
+.chat-input {
+    width: 100%;
+    padding: 12px 48px 12px 16px;
+    border-radius: 24px;
+    border: 1px solid var(--border-secondary);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+.chat-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px var(--accent-primary-light);
+}
+
+.send-btn {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px; border-radius: 50%; border: none;
+    background-color: var(--accent-primary); color: white; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background-color 0.2s;
+}
+.send-btn:hover:not(:disabled) { background-color: var(--accent-primary-hover); }
+.send-btn:disabled { background-color: var(--border-secondary); cursor: not-allowed; }
